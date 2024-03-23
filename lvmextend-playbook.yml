@@ -1,0 +1,13 @@
+---
+  - name: lvm extend playbook
+    hosts: all
+    tasks:
+    - name: extending vg
+      lvg:
+        vg: myvg
+        pvs: /dev/sdb,/dev/sdc
+    - name: extending lv
+      lvol:
+        vg: myvg
+        lv: mylv
+        size: +100%FREE

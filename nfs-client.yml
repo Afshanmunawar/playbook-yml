@@ -1,0 +1,14 @@
+---
+  - name: client side configuration
+    hosts: all
+    tasks: 
+    - name: creatingg directory
+      file:
+        path: /client-project
+        state: directory
+    - name: making boot persistence
+      mount:
+        path: /client-project
+        src: 192.168.1.103:/project-911
+        fstype: nfs
+        state: mounted

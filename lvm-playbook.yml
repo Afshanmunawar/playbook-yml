@@ -1,0 +1,27 @@
+---
+  - name: lvm playbook
+    hosts: all
+    tasks:
+    - name: create vg
+      lvg:
+        vg: myvg
+        pvs: /dev/sdb 
+    - name: create lv
+      lvol:
+        lv: mylv
+        vg: myvg
+        size: 1G
+    - name: create file system
+      filesystem:
+        fstype: xfs
+        dev: /dev/myvg/mylv
+    - name: creatingg directory
+      file:
+        path: /my-lvm
+        state: directory
+    - name: mounting the directory
+      mount:
+        path: /my-lvm
+        src: /dev/myvg/mylv
+        fstype: xfs
+        state: mounted
